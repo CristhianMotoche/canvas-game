@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "browser-sync dist/ --files \"./dist/*\"",
+    "build": "tsc",
     "dev": "tsc -w"
   },
   "author": "Cristhian Motoche",

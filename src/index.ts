@@ -1,4 +1,8 @@
+import Paddle from "./paddle";
+
 const CANVAS_ID = "game";
+const HEIGHT = 500;
+const WIDTH = 600;
 
 const main = (): void => {
   const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement;;
@@ -12,8 +16,9 @@ const main = (): void => {
 };
 
 const draw = (ctx: CanvasRenderingContext2D): void => {
-  ctx.fillStyle = "#f00";
-  ctx.fillRect(20, 20, 100, 100);
+  const paddle = new Paddle(WIDTH, HEIGHT);
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  paddle.draw(ctx);
 }
 
 main();
