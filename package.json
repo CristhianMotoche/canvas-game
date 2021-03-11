@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "watch": "browser-sync dist/ --files \"./dist/*\"",
+    "bundle": "browserify dist/index.js -o dist/bundle.js",
     "build": "tsc",
     "dev": "tsc -w"
   },
   "author": "Cristhian Motoche",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.2.3",
-    "browser-sync": "^2.26.14"
+    "browser-sync": "^2.26.14",
+    "browserify": "^17.0.0",
+    "typescript": "^4.2.3"
   }
 }

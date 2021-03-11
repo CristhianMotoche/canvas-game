@@ -14,12 +14,17 @@ export default class Paddle {
     this.height = 30;
     this.position = {
       x: gameWidth / 2 - this.width / 2,
-      y: gameHeight - 10,
+      y: gameHeight - this.height - 10,
     };
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "#f00";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+
+  update(deltaTime: number) {
+    if (!deltaTime) return;
+    this.position.x += 5 / deltaTime;
   }
 }

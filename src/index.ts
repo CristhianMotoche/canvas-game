@@ -9,16 +9,26 @@ const main = (): void => {
   const ctx = canvas.getContext("2d");
 
   if (ctx) {
-    draw(ctx);
+    gameLoop(ctx, 0);
   } else {
     alert("Invalid context")
   }
 };
 
-const draw = (ctx: CanvasRenderingContext2D): void => {
-  const paddle = new Paddle(WIDTH, HEIGHT);
+const paddle = new Paddle(WIDTH, HEIGHT);
+let lastTime = 0;
+
+const gameLoop = (ctx: CanvasRenderingContext2D, timestamp: number): void => {
+  let deltaTime = timestamp - lastTime;
+  lastTime = timestamp;
+
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+  paddle.update(deltaTime);
   paddle.draw(ctx);
+  window.requestAnimationFrame(
+    (timestamp) => gameLoop(ctx, timestamp)
+  );
 }
 
 main();
