@@ -5,13 +5,20 @@ interface Position {
 
 
 export default class Paddle {
+  gameWidth: number;
   width: number;
   height: number;
+  speed: number;
+  maxSpeed: number;
   position: Position;
 
   constructor(gameWidth: number, gameHeight: number) {
+    this.gameWidth = gameWidth;
     this.width = 150;
     this.height = 30;
+    this.maxSpeed = 5;
+    this.speed = 0;
+
     this.position = {
       x: gameWidth / 2 - this.width / 2,
       y: gameHeight - this.height - 10,
@@ -25,6 +32,17 @@ export default class Paddle {
 
   update(deltaTime: number) {
     if (!deltaTime) return;
-    this.position.x += 5 / deltaTime;
+
+    this.position.x += this.speed;
+    if (this.position.x <= 0) this.speed = 0;
+    if (this.position.x >= this.gameWidth - this.width) this.speed = 0;
+  }
+
+  moveLeft() {
+    this.speed -= this.maxSpeed;
+  }
+
+  moveRight() {
+    this.speed += this.maxSpeed;
   }
 }
