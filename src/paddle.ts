@@ -34,8 +34,10 @@ export default class Paddle {
     if (!deltaTime) return;
 
     this.position.x += this.speed;
-    if (this.position.x <= 0) this.speed = 0;
-    if (this.position.x >= this.gameWidth - this.width) this.speed = 0;
+
+    if (this.position.x <= 0) this.position.x = 0;
+    if (this.position.x >= this.gameWidth - this.width)
+      this.position.x = this.gameWidth - this.width;
   }
 
   moveLeft() {
@@ -44,5 +46,9 @@ export default class Paddle {
 
   moveRight() {
     this.speed += this.maxSpeed;
+  }
+
+  stop() {
+    this.speed = 0;
   }
 }
