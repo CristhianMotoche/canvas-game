@@ -1,8 +1,4 @@
-interface Position {
-  x: number;
-  y: number;
-}
-
+import Position from "./position";
 
 export default class Paddle {
   gameWidth: number;
