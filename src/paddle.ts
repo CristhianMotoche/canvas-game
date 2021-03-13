@@ -1,4 +1,5 @@
 import Position from "./position";
+import Game from "./game";
 
 export default class Paddle {
   gameWidth: number;
@@ -8,16 +9,16 @@ export default class Paddle {
   maxSpeed: number;
   position: Position;
 
-  constructor(gameWidth: number, gameHeight: number) {
-    this.gameWidth = gameWidth;
+  constructor(game: Game) {
+    this.gameWidth = game.gameWidth;
     this.width = 150;
     this.height = 30;
     this.maxSpeed = 5;
     this.speed = 0;
 
     this.position = {
-      x: gameWidth / 2 - this.width / 2,
-      y: gameHeight - this.height - 10,
+      x: game.gameWidth / 2 - this.width / 2,
+      y: game.gameHeight - this.height - 10,
     };
   }
 

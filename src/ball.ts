@@ -1,4 +1,5 @@
 import Position from "./position";
+import Game from "./game";
 
 export default class Ball {
   position: Position;
@@ -7,9 +8,9 @@ export default class Ball {
   gameWidth: number;
   gameHeight: number;
 
-  constructor(gameWidth: number, gameHeight: number) {
-    this.gameHeight = gameHeight;
-    this.gameWidth = gameWidth;
+  constructor(game: Game) {
+    this.gameHeight = game.gameHeight;
+    this.gameWidth = game.gameWidth;
     this.size = 10;
     this.position = {
       x: 200,

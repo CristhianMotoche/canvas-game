@@ -1,18 +1,15 @@
-import Paddle from "./paddle";
-import InputHandler from "./input";
-import Ball from "./ball";
+import Game from "./game";
 
 const CANVAS_ID = "game";
 const HEIGHT = 500;
 const WIDTH = 600;
 
-const paddle = new Paddle(WIDTH, HEIGHT);
-const ball = new Ball(WIDTH, HEIGHT);
+const game = new Game(WIDTH, HEIGHT);
+game.start();
 
 const main = (): void => {
   const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement;;
   const ctx = canvas.getContext("2d");
-  new InputHandler(paddle);
 
   if (ctx) {
     gameLoop(ctx, 0);
@@ -29,10 +26,9 @@ const gameLoop = (ctx: CanvasRenderingContext2D, timestamp: number): void => {
 
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-  paddle.update(deltaTime);
-  paddle.draw(ctx);
-  ball.update(deltaTime);
-  ball.draw(ctx);
+  game.update(deltaTime);
+  game.draw(ctx);
+
   window.requestAnimationFrame(
     (timestamp) => gameLoop(ctx, timestamp)
   );
