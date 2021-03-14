@@ -28,6 +28,7 @@ export default class Game {
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime);
     this.bricks.forEach(brick => brick.update(deltaTime));
+    this.bricks = this.bricks.filter(brick => !brick.wasDeleted);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
