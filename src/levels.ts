@@ -1,13 +1,14 @@
 import Brick from "./brick";
+import Game from "./game";
 
 type Level = number[][];
 
-const buildLevel = (level: Level): Brick[] => {
+const buildLevel = (game: Game, level: Level): Brick[] => {
   let bricks: Brick[] = [];
   level.forEach((row, idxRow) => {
     row.forEach((item, itemIdx) => {
       if(item == 1) {
-        bricks.push(new Brick({x: itemIdx*60 + 3, y: idxRow*40 + 40}));
+        bricks.push(new Brick(game, {x: itemIdx*60 + 3, y: idxRow*40 + 80}));
       }
     })
   })

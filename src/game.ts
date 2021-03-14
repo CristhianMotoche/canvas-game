@@ -17,7 +17,7 @@ export default class Game {
     this.gameHeight = gameHeight;
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
-    this.bricks = buildLevel(level);
+    this.bricks = buildLevel(this, level);
   }
 
   start() {
@@ -27,6 +27,7 @@ export default class Game {
   update(deltaTime: number) {
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime);
+    this.bricks.forEach(brick => brick.update(deltaTime));
   }
 
   draw(ctx: CanvasRenderingContext2D) {
