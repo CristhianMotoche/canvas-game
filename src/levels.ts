@@ -7,7 +7,7 @@ const buildLevel = (level: Level): Brick[] => {
   level.forEach((row, idxRow) => {
     row.forEach((item, itemIdx) => {
       if(item == 1) {
-        bricks.push(new Brick({x: itemIdx*60 + 3, y: idxRow*40 + 15}));
+        bricks.push(new Brick({x: itemIdx*60 + 3, y: idxRow*40 + 40}));
       }
     })
   })

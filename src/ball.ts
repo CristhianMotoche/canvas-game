@@ -1,5 +1,6 @@
 import Position from "./position";
 import Game from "./game";
+import detectCollision from "./collisionDetection";
 
 export default class Ball {
   game: Game;
@@ -44,13 +45,9 @@ export default class Ball {
     if(this.position.y > this.game.gameHeight || this.position.y < 0)
       this.speed.y = -this.speed.y;
     // Hit on paddle
-    const bottomOfBall = this.position.y + this.size;
-    const topOfPaddle =  this.game.paddle.position.y;
-    const leftOfPaddle = this.game.paddle.position.x;
-    const rightOfPaddle = this.game.paddle.position.x + this.game.paddle.width;
-
-    if (bottomOfBall >= topOfPaddle && (this.position.x >= leftOfPaddle && this.position.x <= rightOfPaddle)) {
+    if (detectCollision(this, this.game.paddle)) {
       this.speed.y = -this.speed.y;
+      this.position.y = this.game.paddle.position.y - this.size;
     }
   }
 }
