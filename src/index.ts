@@ -1,10 +1,11 @@
 import Game from "./game";
+import { level1 } from "./levels";
 
 const CANVAS_ID = "game";
 const HEIGHT = 500;
 const WIDTH = 600;
 
-const game = new Game(WIDTH, HEIGHT);
+const game = new Game(WIDTH, HEIGHT, level1);
 game.start();
 
 const main = (): void => {

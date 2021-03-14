@@ -6,7 +6,7 @@ export default class Brick {
   position: Position;
 
   constructor(position: Position) {
-    this.width = 50;
+    this.width = 55;
     this.height = 30;
     this.position = position;
   }
