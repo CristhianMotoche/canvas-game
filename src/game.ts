@@ -44,6 +44,10 @@ export default class Game {
     if (this.state == GameState.PAUSE) {
       ctx.fillStyle = "#aaa";
       ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText("Pause", this.gameWidth/2, this.gameHeight/2);
     }
 
     this.paddle.draw(ctx);
