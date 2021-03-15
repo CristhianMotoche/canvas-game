@@ -6,7 +6,6 @@ const HEIGHT = 500;
 const WIDTH = 600;
 
 const game = new Game(WIDTH, HEIGHT, level1);
-game.start();
 
 const main = (): void => {
   const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement;;

@@ -8,6 +8,7 @@ import { Level, buildLevel } from "./levels";
 enum GameState {
   PAUSE,
   PLAY,
+  MENU,
 }
 
 export default class Game {
@@ -19,20 +20,21 @@ export default class Game {
   state: GameState;
 
   constructor(gameWidth: number, gameHeight: number, level: Level) {
-    this.state = GameState.PLAY;
+    this.state = GameState.MENU;
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
     this.bricks = buildLevel(this, level);
-  }
-
-  start() {
     new InputHandler(this.paddle, this);
   }
 
+  start() {
+    this.state = GameState.PLAY;
+  }
+
   update(deltaTime: number) {
-    if (this.state == GameState.PAUSE) return;
+    if (this.state == GameState.PAUSE || this.state == GameState.MENU) return;
 
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime);
@@ -41,18 +43,29 @@ export default class Game {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    if (this.state == GameState.PAUSE) {
-      ctx.fillStyle = "#aaa";
-      ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
+    if (this.state == GameState.MENU) {
+      ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+      ctx.fillStyle = "#000";
+      ctx.fill();
+
       ctx.font = "30px Arial";
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "#fff";
+      ctx.textAlign = "center";
+      ctx.fillText("Press SPACE bar to start", this.gameWidth/2, this.gameHeight/2);
+    } else if (this.state == GameState.PAUSE) {
+      ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.fill();
+
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "#fff";
       ctx.textAlign = "center";
       ctx.fillText("Pause", this.gameWidth/2, this.gameHeight/2);
+    } else {
+      this.paddle.draw(ctx);
+      this.ball.draw(ctx);
+      this.bricks.forEach(brick => brick.draw(ctx));
     }
-
-    this.paddle.draw(ctx);
-    this.ball.draw(ctx);
-    this.bricks.forEach(brick => brick.draw(ctx));
   }
 
   togglePause() {
