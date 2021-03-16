@@ -21,6 +21,13 @@ export default class Ball {
     }
   }
 
+  reset() {
+    this.position = {
+      x: 200,
+      y: 10
+    }
+  }
+
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.fillStyle = "#00f";
@@ -41,9 +48,14 @@ export default class Ball {
     // Hit on left and right
     if(this.position.x > this.game.gameWidth || this.position.x < 0)
       this.speed.x = -this.speed.x;
-    // Hit on top and bottom
-    if(this.position.y > this.game.gameHeight || this.position.y < 0)
+    // Hit on top
+    if(this.position.y < 0)
       this.speed.y = -this.speed.y;
+    // Hit on bottom => Lose a live
+    if(this.position.y > this.game.gameHeight) {
+      this.game.lives--;
+      this.reset();
+    }
     // Hit on paddle
     if (detectCollision(this, this.game.paddle)) {
       this.speed.y = -this.speed.y;

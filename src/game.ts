@@ -9,6 +9,7 @@ enum GameState {
   PAUSE,
   PLAY,
   MENU,
+  OVER
 }
 
 export default class Game {
@@ -18,6 +19,7 @@ export default class Game {
   gameHeight: number;
   bricks: Brick[];
   state: GameState;
+  lives: number;
 
   constructor(gameWidth: number, gameHeight: number, level: Level) {
     this.state = GameState.MENU;
@@ -26,6 +28,7 @@ export default class Game {
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
     this.bricks = buildLevel(this, level);
+    this.lives = 3;
     new InputHandler(this.paddle, this);
   }
 
@@ -34,7 +37,14 @@ export default class Game {
   }
 
   update(deltaTime: number) {
-    if (this.state == GameState.PAUSE || this.state == GameState.MENU) return;
+    if (this.lives == 0)
+      this.state = GameState.OVER;
+
+    if (
+      this.state == GameState.PAUSE
+      || this.state == GameState.MENU
+      || this.state == GameState.OVER
+    ) return;
 
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime);
@@ -61,6 +71,15 @@ export default class Game {
       ctx.fillStyle = "#fff";
       ctx.textAlign = "center";
       ctx.fillText("Pause", this.gameWidth/2, this.gameHeight/2);
+    } else if (this.state == GameState.OVER) {
+      ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.fill();
+
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "#fff";
+      ctx.textAlign = "center";
+      ctx.fillText("Game Over", this.gameWidth/2, this.gameHeight/2);
     } else {
       this.paddle.draw(ctx);
       this.ball.draw(ctx);
